@@ -1,3 +1,3 @@
-pub fn get_cup()-> String{
+pub fn get_cpu()-> String{
     " powerpc".to_string()
 }

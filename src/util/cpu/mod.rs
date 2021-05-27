@@ -39,6 +39,6 @@ pub mod cpu_sparc;
 #[cfg(target_arch = "sparc")]
 pub use self::cpu_sparc as cpu_son;
 
-pub  fn get_cup() -> String{
-    cpu_son::get_cup()
+pub  fn get_cpu() -> String{
+    cpu_son::get_cpu()
 }
