@@ -1,4 +1,3 @@
-use actix_web::{web};
 use serde_derive::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Pager { 
@@ -10,3 +9,4 @@ pub struct Pager {
 
 
 pub mod template;
+pub mod web_error;
