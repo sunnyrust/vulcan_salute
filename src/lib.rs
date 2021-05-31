@@ -1,4 +1,5 @@
 pub mod util;
+pub mod web;
 #[cfg(target_os = "linux")]
 mod issue_linux;
 #[cfg(target_os = "linux")]

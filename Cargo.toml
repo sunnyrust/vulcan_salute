@@ -8,3 +8,16 @@ edition = "2018"
 
 [dependencies]
 os_info = "3.0"
+actix-web = "2.0"
+actix-web-httpauth = "0.3"
+actix-cors = "0.2"
+actix-service = "1.0"
+
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+tera = "1.8.0"
+
+[[example]]
+name = "cpu"
+path = "./examples/cpu.rs"
