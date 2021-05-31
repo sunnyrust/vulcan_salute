@@ -10,3 +10,4 @@ pub struct Pager {
 
 pub mod template;
 pub mod web_error;
+pub mod controller;
