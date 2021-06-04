@@ -1,5 +1,8 @@
 pub type Tpl = actix_web::web::Data<tera::Tera>;
-
+//!
+//!  模板信息
+//!  模板数据 & 模板渲染
+//! 
 /// 生成模板處理對象
 #[macro_export]
 macro_rules! tmpl { 
@@ -9,7 +12,7 @@ macro_rules! tmpl {
     })
 }
 
-/// 生成模板數據
+/// 生成模板数据
 #[macro_export]
 macro_rules! tmpl_data { 
     () => ({

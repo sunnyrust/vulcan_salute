@@ -5,6 +5,9 @@ use actix_web::middleware::errhandlers::{ErrorHandlerResponse, ErrorHandlers};
 use actix_web::{ web, Result};
 use tera::Tera;
 
+//!
+//!  这个是遇到网页错误的时候进行跳转
+//! 
 
 // Custom error handlers, to return HTML responses when an error occurs.
 pub fn error_handlers() -> ErrorHandlers<Body> {
@@ -13,7 +16,7 @@ pub fn error_handlers() -> ErrorHandlers<Body> {
 
 // Error handler for a 404 Page not found error.
 fn not_found<B>(res: ServiceResponse<B>) -> Result<ErrorHandlerResponse<B>> {
-    let response = get_error_response(&res, "Rust 放假了！等着Sunny继续优化……");
+    let response = get_error_response(&res, "Vulcan 放假了！等着Sunny继续优化……");
     Ok(ErrorHandlerResponse::Response(
         res.into_response(response.into_body()),
     ))

@@ -20,5 +20,6 @@ pub trait Controller {
     /// 删除之后处理
     fn delete_after() ;
 }
+
 pub mod template;
 pub mod web_error;
