@@ -1,6 +1,6 @@
 [package]
 name = "lychee"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["sunny <jinheking@163.com>"]
 edition = "2018"
 
