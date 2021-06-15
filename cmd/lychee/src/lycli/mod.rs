@@ -35,6 +35,8 @@ fn main(){
 }
 "#;
     buffer.write(str_main.as_bytes())?;
+    println!("main.rs created.👌");
+    buffer.flush()?;
     Ok(())
 }
 
@@ -62,6 +64,13 @@ pub(crate) fn create_caego_toml(cargo: crate::lycli::Cargo,path:String)-> std::i
     buffer.write(r"# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html".as_bytes())?;
     buffer.write(b"\n\n")?;
     buffer.write(b"[dependencies]")?;
+    buffer.write(b"\n")?;
+
+    buffer.write(r#"[dependencies.vulcan_salute]"#.as_bytes())?;
+    buffer.write(b"\n")?;
+    buffer.write(r#"git = "https://github.com/sunnyrust/vulcan_salute.git""#.as_bytes())?;
+    buffer.write(b"\n")?;
+    buffer.write(r#"branch = "main""#.as_bytes())?;
     buffer.write(b"\n")?;
 
     println!("Cargo.toml created.👌");
