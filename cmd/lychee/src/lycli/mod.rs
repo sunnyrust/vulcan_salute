@@ -10,6 +10,13 @@ pub struct Cargo {
      pub authors : String,
      pub edition : String,
 }
+#[derive(Serialize, Deserialize)]
+#[derive(Debug)]
+/// Vulcan 项目需要的元素
+pub struct VulcanProject{
+    pub project_name:String,
+    pub project_edition:String
+}
 /// 创建目录
 pub(crate)  fn mkdir(path:&str){
     let r = fs::create_dir_all(path);
