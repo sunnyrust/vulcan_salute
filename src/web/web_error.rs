@@ -1,3 +1,6 @@
+//!
+//!  这个是遇到网页错误的时候进行跳转
+//! 
 use actix_http::{body::Body, Response};
 use actix_web::dev::ServiceResponse;
 use actix_web::http::StatusCode;
@@ -5,9 +8,7 @@ use actix_web::middleware::errhandlers::{ErrorHandlerResponse, ErrorHandlers};
 use actix_web::{ web, Result};
 use tera::Tera;
 
-//!
-//!  这个是遇到网页错误的时候进行跳转
-//! 
+
 
 // Custom error handlers, to return HTML responses when an error occurs.
 pub fn error_handlers() -> ErrorHandlers<Body> {
