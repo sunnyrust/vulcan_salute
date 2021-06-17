@@ -35,34 +35,49 @@ fn flag() -> lycli::VulcanProject {
                     .index(1)
                 )
         )
+        .subcommand(
+            SubCommand::with_name("run")
+            .about("Running the Project")
+            .version(crate_version!())
+            .author(crate_authors!())
+        )
         .get_matches();
 
-        let mut input = String::from("helloworld");
-        if let Some(matches) = matches.subcommand_matches("new") {
-             input = matches.value_of("input").unwrap_or("helloworld").to_string();
+        if let Some(_matches)=matches.subcommand_matches("run"){
+            use std::process::Command;
+
+            Command::new("cargo")
+                .arg("watch")
+                .arg("-x")
+                .arg("run")
+                .spawn()
+                .expect("lychee command failed to start");
+        }else{
+            let mut input = String::from("helloworld");
+            if let Some(matches) = matches.subcommand_matches("new") {
+                 input = matches.value_of("input").unwrap_or("helloworld").to_string();
+            }
+            // println!("project name:{}",input);
+            result.project_name=input;
+            let mut ed_ver = String::from("2018");
+            result.project_edition=ed_ver;
+            let edver=matches.value_of("edver").unwrap_or("2018");
+            
+            if  edver=="2015" {
+                ed_ver=String::from("2015")
+            }else if   edver=="2018" {
+                ed_ver=String::from("2018")
+            }else if   edver=="2021" {
+                ed_ver=String::from("2021")
+            }else {
+                println!("💖 Edition only 2015,2018,2021!");
+                use std::process;
+                process::exit(0x0100);
+            }
+            
+            result.project_edition=ed_ver;
         }
-        // println!("project name:{}",input);
-        result.project_name=input;
-        let mut ed_ver = String::from("2018");
-        result.project_edition=ed_ver;
-        let edver=matches.value_of("edver").unwrap_or("2018");
-        
-        if  edver=="2015" {
-            ed_ver=String::from("2015")
-        }else if   edver=="2018" {
-            ed_ver=String::from("2018")
-        }else if   edver=="2021" {
-            ed_ver=String::from("2021")
-        }else {
-            println!("💖 Edition only 2015,2018,2021!");
-            use std::process;
-            process::exit(0x0100);
-        }
-        
-        result.project_edition=ed_ver;
-        // if let Some(matches) = matches.subcommand_matches("new") {
-        //      input = matches.value_of("input").unwrap_or("helloworld").to_string();
-        // }
+       
         result
     }
 
@@ -104,7 +119,34 @@ fn main() {
     lycli::mkdir(&dir_name);
     let millis = time::Duration::from_millis(300);
     thread::sleep(millis);
+    let dir_name=project_name.to_string()+"/static/Css";
+    lycli::mkdir(&dir_name);
+    thread::sleep(millis);
+    let dir_name=project_name.to_string()+"/static/Images";
+    lycli::mkdir(&dir_name);
+    thread::sleep(millis);
+    let dir_name=project_name.to_string()+"/static/Js";
+    lycli::mkdir(&dir_name);
+    thread::sleep(millis);
+    let dir_name=project_name.to_string()+"/templates";
+    lycli::mkdir(&dir_name);
+    thread::sleep(millis);
+    let dir_name=project_name.to_string()+"/src/controllers";
+    lycli::mkdir(&dir_name);
+    thread::sleep(millis);
     let _result=lycli::create_caego_toml(cargo, cargo_toml_path);
+    thread::sleep(millis);
+    let path=project_name.to_string()+"/templates/index.html";
+    let _result=lycli::create_index_tpl(path);
+    thread::sleep(millis);
+    let path=project_name.to_string()+"/src/controllers/mod.rs";
+    let body=br#"pub mod index;
+    "#;
+    let msg=String::from("Index mod created.👌");
+    let _result=lycli::create_file(path,body,msg);
+    thread::sleep(millis);
+    let path=project_name.to_string()+"/src/controllers/index.rs";
+    let _result=lycli::create_index_controller(path);
     thread::sleep(millis);
     let main_path=project_name.to_string()+"/src/main.rs";
     let _result=lycli::create_main(main_path);
