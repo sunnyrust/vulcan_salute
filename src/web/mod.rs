@@ -7,19 +7,39 @@ pub struct Pager {
     pub limit: u32,
 }
 
-
-pub trait Controller {
-    /// 处理额外的追回数据
-    fn index_after(_data: &mut tera::Context);
-
-    /// 处理编辑时需要展现出来的附加数据
-    fn edit_after(_data: &mut tera::Context);
-    /// 保存之后处理
-    fn save_after() ;
-
-    /// 删除之后处理
-    fn delete_after() ;
+#[allow(dead_code)]
+/// 这个是Controller的基类
+pub struct Controller{
+    name:String, 
 }
+
+impl Controller {
+    pub fn new(name: String) -> Controller {
+        Controller { name: name }
+    }
+}
+trait GetControllerName {
+    /// 取得Controller的名字
+    fn get_controller_name(&mut self)->String;
+}
+
+impl GetControllerName for Controller {
+    fn get_controller_name(&mut self)->String {
+         String::from(&self.name)
+    }
+}
+// pub trait Controller {
+//     /// 处理额外的追回数据
+//     fn index_after(_data: &mut tera::Context);
+
+//     /// 处理编辑时需要展现出来的附加数据
+//     fn edit_after(_data: &mut tera::Context);
+//     /// 保存之后处理
+//     fn save_after() ;
+
+//     /// 删除之后处理
+//     fn delete_after() ;
+// }
 
 pub mod template;
 pub mod web_error;
