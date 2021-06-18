@@ -17,17 +17,20 @@ impl Controller {
     pub fn new(name: String) -> Controller {
         Controller { name: name }
     }
+    pub  fn get_controller_name(&mut self)->String {
+        String::from(&self.name)
+   }
 }
-trait GetControllerName {
-    /// 取得Controller的名字
-    fn get_controller_name(&mut self)->String;
-}
+// trait GetControllerName {
+//     /// 取得Controller的名字
+//     fn get_controller_name(&mut self)->String;
+// }
 
-impl GetControllerName for Controller {
-    fn get_controller_name(&mut self)->String {
-         String::from(&self.name)
-    }
-}
+// impl GetControllerName for Controller {
+//     fn get_controller_name(&mut self)->String {
+//          String::from(&self.name)
+//     }
+// }
 // pub trait Controller {
 //     /// 处理额外的追回数据
 //     fn index_after(_data: &mut tera::Context);
