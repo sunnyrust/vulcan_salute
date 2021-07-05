@@ -7,7 +7,7 @@ use std::ops::Deref;
 /// 默认生成结构的时候需要这样，开始
 #[macro_use]
 struct_names! {
-struct HelloController {
+pub struct HelloController {
     node: web::Controller
 }
 }
@@ -20,7 +20,7 @@ impl HelloController{
 /// 默认生成结构的时候需要这样，结束
 /// 
 
-impl Deref for HelloController {
+impl Deref for  HelloController {
     type Target = web::Controller;
 
     fn deref(&self) -> & web::Controller {

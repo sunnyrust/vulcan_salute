@@ -1,4 +1,4 @@
-use ::function_name::named;
+// use ::function_name::named;
 use serde_derive::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Pager { 
@@ -14,13 +14,13 @@ pub struct Pager {
 #[allow(unused_macros)]
 #[macro_export]
 macro_rules! struct_names {
-    (struct $name:ident { $($fname:ident : $ftype:ty),* }) => {
+    (pub struct $name:ident { $($fname:ident : $ftype:ty),* }) => {
         #[allow(dead_code)]
-        struct $name {
+        pub struct $name {
             $($fname : $ftype),*
         }
 
-        impl $name {
+        impl  $name {
             const fn field_names() -> &'static[&'static str] {
                 &[$(stringify!($fname)),*]
             }
@@ -45,7 +45,7 @@ pub struct Controller{
 impl Controller {
     ///在 Rust 中，构造函数并不特殊——但按照惯例，它通常是一个名为 new 的静态方法。
     /// 但既然是约定俗成的东西，感觉就像是一个构造函数，但所有规则都可以微调，而且简单很多。
-    #[named]
+    // #[named]
     pub fn new(name:  String) -> Controller {
         // if name==String::from("name"){
         //     name= String::from(  module_path!());
@@ -79,7 +79,7 @@ impl Controller {
 //     fn delete_after() ;
 // }
 #[macro_use]struct_names! {
-    struct VulcanController {
+    pub struct VulcanController {
         node: Controller
     }
 }
