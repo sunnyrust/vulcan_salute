@@ -1,3 +1,4 @@
+use ::function_name::named;
 use serde_derive::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Pager { 
@@ -8,18 +9,52 @@ pub struct Pager {
 }
 
 #[allow(dead_code)]
+
 /// 这个是Controller的基类
+#[allow(unused_macros)]
+#[macro_export]
+macro_rules! struct_names {
+    (struct $name:ident { $($fname:ident : $ftype:ty),* }) => {
+        #[allow(dead_code)]
+        struct $name {
+            $($fname : $ftype),*
+        }
+
+        impl $name {
+            const fn field_names() -> &'static[&'static str] {
+                &[$(stringify!($fname)),*]
+            }
+
+            const fn struct_name() -> &'static str{
+                stringify!($name)
+            }
+        }
+    }
+}
+
+
 pub struct Controller{
     name:String, 
 }
 
+// #[macro_use] extern crate function_name;
+// macro_rules! function_path {() => (concat!(
+//     module_path!(), "::", function_name!()
+// ))}
+
 impl Controller {
-    pub fn new(name: String) -> Controller {
+    ///在 Rust 中，构造函数并不特殊——但按照惯例，它通常是一个名为 new 的静态方法。
+    /// 但既然是约定俗成的东西，感觉就像是一个构造函数，但所有规则都可以微调，而且简单很多。
+    #[named]
+    pub fn new(name:  String) -> Controller {
+        // if name==String::from("name"){
+        //     name= String::from(  module_path!());
+        // }
+        println!("Module===>{:?}",module_path!());
         Controller { name: name }
     }
-    pub  fn get_controller_name(&mut self)->String {
-        String::from(&self.name)
-   }
+
+    
 }
 // trait GetControllerName {
 //     /// 取得Controller的名字
@@ -43,6 +78,19 @@ impl Controller {
 //     /// 删除之后处理
 //     fn delete_after() ;
 // }
+#[macro_use]struct_names! {
+    struct VulcanController {
+        node: Controller
+    }
+}
 
+use std::ops::Deref;
+impl Deref for VulcanController {
+    type Target = Controller;
+
+    fn deref(&self) -> & Controller {
+          return &self.node;
+     }                
+}
 pub mod template;
 pub mod web_error;
